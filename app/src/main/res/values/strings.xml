@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">WedzZoomUiPoc</string>
+    <string name="button_1">Room-1</string>
+    <string name="button_2">Room-2</string>
+    <string name="todo">TODO</string>
+    <string name="this_app_name">WedzZoomUiPoc</string>
+    <string name="back">Back</string>
+    <string name="leave">leave</string>
+    <string name="textview">Room Name</string>
+<!--    <string name="todo">TODO</string>-->
 </resources>
