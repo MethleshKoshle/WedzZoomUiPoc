@@ -68,6 +68,8 @@ import us.zoom.sdk.SmsListener;
 import us.zoom.sdk.StartMeetingOptions;
 import us.zoom.sdk.ZoomSDK;
 import us.zoom.sdk.ZoomSDKCountryCode;
+
+import com.example.wedzzoomuipoc.DashboardActivity;
 import com.example.wedzzoomuipoc.R;
 import com.example.wedzzoomuipoc.inmeetingfunction.customizedmeetingui.audio.MeetingAudioCallback;
 import com.example.wedzzoomuipoc.inmeetingfunction.customizedmeetingui.audio.MeetingAudioHelper;
@@ -97,14 +99,6 @@ public class MyMeetingActivity extends FragmentActivity implements View.OnClickL
         MeetingUserCallback.UserEvent, MeetingCommonCallback.CommonEvent, SmsListener {
 
     public static int cnt=0;
-    public static String mtNumber = "93204326061";
-    public static String mtName = "ABCD_1";
-
-    public static String mtNumber1 = "96125668341";
-    public static String mtName1 = "ABCD_1";
-
-    public static String mtNumber2 = "93204326061";
-    public static String mtName2 = "ABCD_2";
 
     private final static String TAG = MyMeetingActivity.class.getSimpleName();
 
@@ -825,70 +819,17 @@ public class MyMeetingActivity extends FragmentActivity implements View.OnClickL
 
 
     private void showMainActivity() {
-        Class clz = LoginUserStartJoinMeetingActivity.class;
-        if (from == JOIN_FROM_UNLOGIN) {
-            clz = InitAuthSDKActivity.class;
-        } else if (from == JOIN_FROM_APIUSER) {
-            clz = APIUserStartJoinMeetingActivity.class;
-        }
-        Intent intent = new Intent(this, clz);
+//        Class clz = LoginUserStartJoinMeetingActivity.class;
+//        if (from == JOIN_FROM_UNLOGIN) {
+////            clz = InitAuthSDKActivity.class;
+////        } else if (from == JOIN_FROM_APIUSER) {
+////            clz = APIUserStartJoinMeetingActivity.class;
+////        }
+        Intent intent = new Intent(this, DashboardActivity.class);
         // Additional
 //         intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         startActivity(intent);
         clearSubscribe();
-    }
-
-    public void startMeeting(String number, String name){
-        int ret = -1;
-        MeetingService meetingService = mZoomSDK.getMeetingService();
-        if(meetingService == null) {
-            return;
-        }
-//        if(!mZoomSDK.isInitialized())
-//        {
-//            Toast.makeText(this,"Init SDK First",Toast.LENGTH_SHORT).show();
-//            InitAuthSDKHelper.getInstance().initSDK(this, (InitAuthSDKCallback) this);
-//            return;
-//        }
-//
-//        if (ZoomSDK.getInstance().getMeetingSettingsHelper().isCustomizedMeetingUIEnabled()) {
-//            ZoomSDK.getInstance().getSmsService().enableZoomAuthRealNameMeetingUIShown(false);
-//        } else {
-//            ZoomSDK.getInstance().getSmsService().enableZoomAuthRealNameMeetingUIShown(true);
-//        }
-//        String number = numberEdit.getText().toString();
-//        String name = nameEdit.getText().toString();
-
-
-
-        JoinMeetingOptions opts = ZoomMeetingUISettingHelper.getJoinMeetingOptions();
-
-        // some available options
-        opts.no_driving_mode = true;
-        opts.no_invite = true;
-        opts.no_meeting_end_message = true;
-        opts.no_titlebar = true;
-        opts.no_bottom_toolbar = true;
-        opts.no_dial_in_via_phone = true;
-        opts.no_dial_out_to_phone = true;
-        opts.no_disconnect_audio = true;
-        opts.no_share = true;
-        opts.invite_options = InviteOptions.INVITE_VIA_EMAIL + InviteOptions.INVITE_VIA_SMS;
-        opts.no_audio = true;
-        opts.no_video = true;
-        opts.meeting_views_options = MeetingViewsOptions.NO_BUTTON_SHARE;
-        opts.no_meeting_error_message = true;
-        opts.participant_id = meetingOptions.participant_id;
-
-        JoinMeetingParams params = new JoinMeetingParams();
-        params.meetingNo = number;
-        params.displayName = name;
-
-        int response = meetingService.joinMeetingWithParams(this, params, opts);
-
-
-//        JoinMeetingOptions options=new JoinMeetingOptions();
-//        ZoomSDK.getInstance().getMeetingService().joinMeetingWithParams(this, params, ZoomMeetingUISettingHelper.getJoinMeetingOptions());
     }
 
     Dialog builder;
@@ -976,13 +917,11 @@ public class MyMeetingActivity extends FragmentActivity implements View.OnClickL
     @Override
     public void finish() {
         if (!finished) {
-            if(cnt==1){
-                Intent intent = new Intent(this, StartMeetingActivity.class);
-                startActivity(intent);
-            }
-            else
-                showMainActivity();
+            Intent intent = new Intent(this, DashboardActivity.class);
+            startActivity(intent);
         }
+        else
+            showMainActivity();
         finished = true;
         super.finish();
     }

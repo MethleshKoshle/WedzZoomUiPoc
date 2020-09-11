@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -11,6 +12,8 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.annotation.RequiresApi;
 
 import us.zoom.sdk.InMeetingNotificationHandle;
 import us.zoom.sdk.JoinMeetingOptions;
@@ -172,6 +175,7 @@ public class InitAuthSDKActivity extends Activity implements InitAuthSDKCallback
             intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
             startActivity(intent);
         }
+
     }
 
     public void onClickSettings(View view) {
@@ -233,116 +237,7 @@ public class InitAuthSDKActivity extends Activity implements InitAuthSDKCallback
         JoinMeetingOptions options=new JoinMeetingOptions();
         ZoomSDK.getInstance().getMeetingService().joinMeetingWithParams(this, params,ZoomMeetingUISettingHelper.getJoinMeetingOptions());
     }
-    public void startMeeting(String number, String name){
-        int ret = -1;
-        MeetingService meetingService = mZoomSDK.getMeetingService();
-        if(meetingService == null) {
-            return;
-        }
 
-        ZoomSDK.getInstance().getMeetingSettingsHelper().enable720p(false);
-        ZoomSDK.getInstance().getMeetingSettingsHelper().enableShowMyMeetingElapseTime(true);
-        ZoomSDK.getInstance().getMeetingService().addListener(this);
-        ZoomSDK.getInstance().getMeetingSettingsHelper().setCustomizedNotificationData(null, handle);
-        Toast.makeText(this, "2 Initialize Zoom SDK successfully.", Toast.LENGTH_LONG).show();
-        if (mZoomSDK.tryAutoLoginZoom() == ZoomApiError.ZOOM_API_ERROR_SUCCESS) {
-            UserLoginCallback.getInstance().addListener(this);
-            showProgressPanel(true);
-        } else {
-            showProgressPanel(false);
-        }
-
-        if(!mZoomSDK.isInitialized())
-        {
-            Toast.makeText(this,"1 Init SDK First", Toast.LENGTH_SHORT).show();
-            InitAuthSDKHelper.getInstance().initSDK(this, (InitAuthSDKCallback) this);
-            return;
-        }
-//
-//        if (ZoomSDK.getInstance().getMeetingSettingsHelper().isCustomizedMeetingUIEnabled()) {
-//            ZoomSDK.getInstance().getSmsService().enableZoomAuthRealNameMeetingUIShown(false);
-//        } else {
-//            ZoomSDK.getInstance().getSmsService().enableZoomAuthRealNameMeetingUIShown(true);
-//        }
-//        String number = numberEdit.getText().toString();
-//        String name = nameEdit.getText().toString();
-
-
-
-//        JoinMeetingOptions opts = ZoomMeetingUISettingHelper.getJoinMeetingOptions();
-//
-//        // some available options
-//        opts.no_driving_mode = true;
-//        opts.no_invite = true;
-//        opts.no_meeting_end_message = true;
-//        opts.no_titlebar = true;
-//        opts.no_bottom_toolbar = true;
-//        opts.no_dial_in_via_phone = true;
-//        opts.no_dial_out_to_phone = true;
-//        opts.no_disconnect_audio = true;
-//        opts.no_share = true;
-//        opts.invite_options = InviteOptions.INVITE_VIA_EMAIL + InviteOptions.INVITE_VIA_SMS;
-//        opts.no_audio = true;
-//        opts.no_video = true;
-//        opts.meeting_views_options = MeetingViewsOptions.NO_BUTTON_SHARE;
-//        opts.no_meeting_error_message = true;
-//        opts.participant_id = meetingOptions.participant_id;
-
-        JoinMeetingParams params = new JoinMeetingParams();
-        params.meetingNo = number;
-        params.displayName = name;
-
-//        int response = meetingService.joinMeetingWithParams(this, params, opts);
-
-//        if(!ZoomSDK.getInstance().isInitialized())
-//        {
-//            showProgressPanel(false);
-//            return;
-//        }
-//        if (ZoomSDK.getInstance().getMeetingSettingsHelper().isCustomizedMeetingUIEnabled()) {
-////            if (meetingStatus == MeetingStatus.MEETING_STATUS_CONNECTING) {
-//                showMeetingUi();
-////            }
-//        }
-//        refreshUI();
-//        JoinMeetingOptions options=new JoinMeetingOptions();
-//        ZoomSDK.getInstance().getMeetingService().joinMeetingWithParams(this, params, ZoomMeetingUISettingHelper.getJoinMeetingOptions());
-    }
-    public void onCustomClickJoin(String number, String name) {
-        // 2
-//        ZoomSDK.getInstance().getMeetingSettingsHelper().enable720p(false);
-//        ZoomSDK.getInstance().getMeetingSettingsHelper().enableShowMyMeetingElapseTime(true);
-//        ZoomSDK.getInstance().getMeetingService().addListener(this);
-//        ZoomSDK.getInstance().getMeetingSettingsHelper().setCustomizedNotificationData(null, handle);
-//        Toast.makeText(this, "Initialize Zoom SDK successfully.", Toast.LENGTH_LONG).show();
-//        if (mZoomSDK.tryAutoLoginZoom() == ZoomApiError.ZOOM_API_ERROR_SUCCESS) {
-//            UserLoginCallback.getInstance().addListener(this);
-//            showProgressPanel(true);
-//        } else {
-//            showProgressPanel(false);
-//        }
-        // 3
-        if(!mZoomSDK.isInitialized())
-        {
-            Toast.makeText(this,"5 Init SDK First", Toast.LENGTH_SHORT).show();
-            InitAuthSDKHelper.getInstance().initSDK(this, this);
-            return;
-        }
-
-        if (ZoomSDK.getInstance().getMeetingSettingsHelper().isCustomizedMeetingUIEnabled()) {
-            ZoomSDK.getInstance().getSmsService().enableZoomAuthRealNameMeetingUIShown(false);
-        } else {
-            ZoomSDK.getInstance().getSmsService().enableZoomAuthRealNameMeetingUIShown(true);
-        }
-//        String number = numberEdit.getText().toString();
-//        String name = nameEdit.getText().toString();
-
-        JoinMeetingParams params = new JoinMeetingParams();
-        params.meetingNo = number;
-        params.displayName = name;
-        JoinMeetingOptions options=new JoinMeetingOptions();
-        ZoomSDK.getInstance().getMeetingService().joinMeetingWithParams(this, params,ZoomMeetingUISettingHelper.getJoinMeetingOptions());
-    }
     private void showProgressPanel(boolean show) {
         if (show) {
             mBtnEmailLogin.setVisibility(View.GONE);
@@ -455,6 +350,7 @@ public class InitAuthSDKActivity extends Activity implements InitAuthSDKCallback
 
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onActivityResult(int requestCode, int resultCode, final Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

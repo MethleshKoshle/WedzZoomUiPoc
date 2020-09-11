@@ -12,12 +12,12 @@
         android:layout_width="89dp"
         android:layout_height="55dp"
         android:layout_marginBottom="100dp"
+        android:onClick="onClickRoom1"
         android:text="@string/button_1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/button2"
         app:layout_constraintHorizontal_bias="0.602"
-        app:layout_constraintStart_toStartOf="parent"
-        android:onClick="onClickRoom1"/>
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/button2"
@@ -37,12 +37,37 @@
         android:id="@+id/imageView"
         android:layout_width="372dp"
         android:layout_height="564dp"
-        android:layout_marginBottom="12dp"
+        android:layout_marginBottom="8dp"
         android:contentDescription="@string/todo"
         android:src="@drawable/wedz_1"
         app:layout_constraintBottom_toTopOf="@+id/button"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.589"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/progressPanel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="537dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/txtConnecting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="5dp"
+            android:text="Logining... " />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
