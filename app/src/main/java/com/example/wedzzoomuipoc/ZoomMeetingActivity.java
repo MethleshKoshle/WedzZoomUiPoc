@@ -32,33 +32,29 @@ public class ZoomMeetingActivity  extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_meeting);
 
-        String newString;
-        if (savedInstanceState == null) {
-            Bundle extras = getIntent().getExtras();
-            if(extras == null) {
-                newString= null;
-            } else {
-                newString= extras.getString("roomName");
-            }
-        } else {
-            newString= (String) savedInstanceState.getSerializable("roomName");
+        RoomInfo currRoom = null;
+        //in SecondActivity
+        if(getIntent().getExtras() != null) {
+            currRoom = getIntent().getParcelableExtra("roomName");
         }
         Toast toast = Toast.makeText(getApplicationContext(),
-                newString,
+                currRoom.getRoomName(),
                 Toast.LENGTH_SHORT);
         toast.show();
 
         ImageView img = (ImageView) findViewById(R.id.imageView2);
-        TextView tv = (TextView)findViewById(R.id.textView);
+//        TextView tv = (TextView)findViewById(R.id.textView);
 
-        assert newString != null;
+        String newString = currRoom.getRoomName();
         if(newString.equals("Room-1")) {
             img.setImageResource(R.drawable.wedz_2);
-            tv.setText("Room 1");
+            setTitle(newString);
+//            tv.setText("Room 1");
         }
         else {
             img.setImageResource(R.drawable.wedz_3);
-            tv.setText("Room 2");
+            setTitle(newString);
+//            tv.setText("Room 2");
         }
     }
 }
