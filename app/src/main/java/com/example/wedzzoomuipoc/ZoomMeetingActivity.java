@@ -1,5 +1,7 @@
 package com.example.wedzzoomuipoc;
 
+import us.zoom.sdk.MeetingActivity;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
