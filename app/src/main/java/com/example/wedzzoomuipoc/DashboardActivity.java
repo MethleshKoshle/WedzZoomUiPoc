@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -31,16 +32,32 @@ public class DashboardActivity extends AppCompatActivity {
         setContentView(R.layout.activity_dashboard);
     }
 
+    RoomInfo room = new RoomInfo();
+
     public void onClickRoom1(View view) {
         Intent intent = new Intent(this, ZoomMeetingActivity.class);
-        intent.putExtra("roomName", "Room-1"); //Put your id to your next Intent
+
+        room.setRoomName("Room-1");
+        room.setRoomId("1234");
+        room.setMeetingId("1234");
+        room.setPassword("1234");
+
+        intent.putExtra("roomName", room); //Put your id to your next Intent
+//        intent.putExtra("roomName", "Room-1"); //Put your id to your next Intent
+
         startActivity(intent);
     }
 
     public void onClickRoom2(View view) {
         Intent intent = new Intent(this, ZoomMeetingActivity.class);
-        intent.putExtra("roomName", "Room-2"); //Put your id to your next Intent
+
+        room.setRoomName("Room-2");
+        room.setRoomId("1234");
+        room.setMeetingId("1234");
+        room.setPassword("1234");
+
+        intent.putExtra("roomName", room); //Put your id to your next Intent
+//        intent.putExtra("roomName", "Room-2"); //Put your id to your next Intent
         startActivity(intent);
     }
 }
-
