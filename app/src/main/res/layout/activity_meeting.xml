@@ -53,4 +53,5 @@
         app:layout_constraintTop_toBottomOf="@+id/textView"
         android:src="@drawable/ic_launcher_background"
         android:contentDescription="@string/todo" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

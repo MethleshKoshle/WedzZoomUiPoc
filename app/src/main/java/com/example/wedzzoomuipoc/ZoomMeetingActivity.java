@@ -1,9 +1,21 @@
 package com.example.wedzzoomuipoc;
 
+import us.zoom.sdk.InMeetingNotificationHandle;
+import us.zoom.sdk.JoinMeetingOptions;
+import us.zoom.sdk.JoinMeetingParams;
+import us.zoom.sdk.MeetingActivity;
+import us.zoom.sdk.MeetingServiceListener;
+import us.zoom.sdk.MeetingStatus;
+import us.zoom.sdk.ZoomApiError;
+import us.zoom.sdk.ZoomAuthenticationError;
+import us.zoom.sdk.ZoomError;
+import us.zoom.sdk.ZoomSDK;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -17,7 +29,16 @@ import android.widget.Toast;
 import android.content.Intent;
 import android.os.Handler;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.wedzzoomuipoc.initsdk.InitAuthSDKCallback;
+import com.example.wedzzoomuipoc.initsdk.InitAuthSDKHelper;
+import com.example.wedzzoomuipoc.inmeetingfunction.customizedmeetingui.MyMeetingActivity;
+import com.example.wedzzoomuipoc.inmeetingfunction.customizedmeetingui.RawDataMeetingActivity;
+import com.example.wedzzoomuipoc.inmeetingfunction.customizedmeetingui.view.MeetingWindowHelper;
+import com.example.wedzzoomuipoc.inmeetingfunction.zoommeetingui.ZoomMeetingUISettingHelper;
+import com.example.wedzzoomuipoc.startjoinmeeting.UserLoginCallback;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -26,7 +47,20 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-public class ZoomMeetingActivity  extends AppCompatActivity {
+public class ZoomMeetingActivity  extends AppCompatActivity{
+
+    private static final String TAG = "ZoomSDKExample";
+
+    private View layoutJoin;
+    private View mProgressPanel;
+
+    private Button mReturnMeeting;
+
+
+    private ZoomSDK mZoomSDK;
+    private boolean isResumed = false;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,4 +91,5 @@ public class ZoomMeetingActivity  extends AppCompatActivity {
 //            tv.setText("Room 2");
         }
     }
+
 }
